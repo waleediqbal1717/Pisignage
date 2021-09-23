@@ -30,8 +30,10 @@ var getTxtFiles = function(cb){
 }
 
 exports.index = function(req,res){
-
     getTxtFiles(function(err,files){
+        if(err)
+            return rest.sendError(res,'error in reading license directory',err);
+
         return rest.sendSuccess(res,'total license list ',files);
     })
 };
@@ -62,9 +64,6 @@ exports.deleteLicense = function(req,res){ // delete particular license and retu
 			return rest.sendError(res,"License "+req.params['filename']+" can't be deleted",err);
 		
 		getTxtFiles(function(err,files){ // get all license
-			if(err)
-				return rest.sendError(res,'error in reading license directory',err);
-
 			return rest.sendSuccess(res,"License "+req.params['filename']+" deleted successfuly",files);
 		});
 	})
