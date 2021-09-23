@@ -32,9 +32,6 @@ var getTxtFiles = function(cb){
 exports.index = function(req,res){
 
     getTxtFiles(function(err,files){
-        if(err)
-            return rest.sendError(res,'error in reading license directory',err);
-
         return rest.sendSuccess(res,'total license list ',files);
     })
 };
